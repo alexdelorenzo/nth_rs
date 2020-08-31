@@ -1,0 +1,32 @@
+cargo-features = ['named-profiles']
+
+[package]
+name = "nth"
+version = "0.1.0"
+authors = ["alexdelorenzo <you@example.com>"]
+edition = "2018"
+opt-level = 3
+description = "Return or exclude the nth item via stdin"
+license = " AGPL-3.0-only"
+repository = "https://alexdelorenzo.dev"
+homepage = "https://alexdelorenzo.dev"
+documentation = "https://alexdelorenzo.dev"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = "2.33.3"
+#rayon = ""
+
+[profile.release]
+opt-level = 3
+debug = false 
+incremental = true
+lto = true
+
+[profile.dev]
+opt-level = 3
+incremental = true
+
+# [profile.debug]
+# opt-level = 3
