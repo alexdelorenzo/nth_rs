@@ -15,6 +15,7 @@ type LineNums = Vec<usize>;
 type NthStr = (usize, String);
 // type NthStrIterable = Box<dyn Iterator<Item = NthStr>>;
 
+
 fn get_matches_from_cli<'a>() -> ArgMatches<'a> {
     clap_app!(nth =>
         (version: "0.0.1")
