@@ -1,7 +1,7 @@
 cargo-features = ['named-profiles']
 
 [package]
-name = "nth-rs"
+name = "nth_rs"
 version = "0.1.0"
 authors = ["alexdelorenzo <you@example.com>"]
 edition = "2018"

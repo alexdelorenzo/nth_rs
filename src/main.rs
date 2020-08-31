@@ -1,4 +1,4 @@
-use nth::run;
+use nth_rs::run;
 
 
 fn main() {
