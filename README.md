@@ -1,5 +1,5 @@
 # nth_rs
-Return or exclude the `nth` lines supplied from stdin as output on stdout. See the Python version of this utility here: [nth_py](https://github.com/alexdelorenzo/nth_rs).
+Return or exclude the `nth` lines supplied from stdin as output on stdout. See the Python version of this utility here: [nth_py](https://github.com/alexdelorenzo/nth_py).
 
 # Install
 
