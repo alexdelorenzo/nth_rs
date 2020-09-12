@@ -46,12 +46,14 @@ pub fn run() {
     }
 }
 
+fn to_str(num: &str) -> usize {
+    FromStr::from_str(num).unwrap()
+}
+
 fn get_line_nums(matches: &ArgMatches) -> LineNums {
     let mut line_nums = 
         if let Some(lines) = matches.values_of(LINES) {
-            Vec::from_iter(lines.map(|line| 
-                FromStr::from_str(line).unwrap()
-            )) 
+            lines.map(to_str).collect() 
         } else {
             vec![]
         };
@@ -80,8 +82,8 @@ fn exclude_lines<T: Iterator<Item = NthStr>>(
     lines: &LineNums, 
     content: T
 ) {
-    let mut lines: HashSet<usize> = 
-      HashSet::from_iter(lines.iter().cloned());
+    let mut lines: HashSet<&usize> = 
+      lines.iter().collect();
     
     for (nth, line) in content {
         if lines.contains(&nth) {
