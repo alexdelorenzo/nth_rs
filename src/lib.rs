@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 use std::collections::HashSet;
-use std::iter::{FromIterator, Iterator};
+use std::iter::{Iterator};
 use std::str::FromStr;
 // use rayon::prelude
 
