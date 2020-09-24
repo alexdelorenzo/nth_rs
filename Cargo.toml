@@ -2,8 +2,8 @@ cargo-features = ['named-profiles']
 
 [package]
 name = "nth_rs"
-version = "0.1.4"
-authors = ["alexdelorenzo <you@example.com>"]
+version = "0.2.0"
+authors = ["alexdelorenzo <alex@alexdelorenzo.dev>"]
 edition = "2018"
 opt-level = 3
 description = "Return or exclude the nth lines supplied from stdin as output on stdout."
