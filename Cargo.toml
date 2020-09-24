@@ -16,6 +16,7 @@ documentation = "https://github.com/alexdelorenzo/nth_rs"
 
 [dependencies]
 clap = "2.33.3"
+byte_string = "1.0.0"
 #rayon = ""
 
 [profile.release]
