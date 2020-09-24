@@ -28,5 +28,25 @@ $ dmesg | count | nth_rs 0 1 2 3
      3  [    4.109677] mmc_host mmc0: Bus speed (slot 0) = 50000000Hz (slot req 52000000Hz, actual 50000000HZ div = 0)
 ```
 
+## Help
+```bash
+$ nth_rs --help
+nth 0.2.0
+AlexDeLorenzo.dev
+Return the contents of stdin from the line numbers supplied as arguments.
+
+USAGE:
+    nth_rs [FLAGS] <LINES>...
+
+FLAGS:
+    -h, --help       Prints help information
+    -r, --reverse    Write every line, except the line numbers supplied as LINES, from stdin to stdout.
+    -V, --version    Prints version information
+
+ARGS:
+    <LINES>...    Line numbers to select
+
+```
+
 # License
 See `LICENSE`. If you'd like to use this project with a different license, please get in touch.
