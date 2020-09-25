@@ -30,19 +30,26 @@ pub struct ByteLines<B> {
     buf: B,
 }
 
-impl<B: BufRead> Iterator for ByteLines<B> {
+
+impl<B: Read> Iterator for ByteLines<B> {
   type Item = ByteLineResult;
 
   fn next(&mut self) -> Option<ByteLineResult> {
     let mut buf = vec![];
     let mut bytes = self.buf.by_ref().bytes();
 
-    while let Some(Ok(byte)) = bytes.next() {
-      buf.push(byte);
+    for byte in bytes {
+      if let Ok(byte) = byte {
+        buf.push(byte);
 
-      if is_newline(byte) {
-        break;
+        if is_newline(byte) {
+          break;
+        }
       }
+    }
+
+    if buf.is_empty() {
+      return None;
     }
 
     let byte_str = ByteString::new(buf);
@@ -77,7 +84,7 @@ fn to_stdout(byte_str: &ByteString) {
 }
 
 fn get_line_nums(matches: &ArgMatches) -> LineNums {
-  let mut line_nums = 
+  let mut line_nums =
     if let Some(lines) = matches.values_of(LINES) {
       lines.map(to_num).collect() 
     } else {
@@ -89,7 +96,7 @@ fn get_line_nums(matches: &ArgMatches) -> LineNums {
 }
 
 fn include_lines<T: IntoIterator<Item = NthStr>>(
-  lines: &mut LineNums, 
+  lines: &mut LineNums,
   content: T
 ) {
   for (nth, line) in content {
@@ -101,12 +108,12 @@ fn include_lines<T: IntoIterator<Item = NthStr>>(
     if lines.is_empty() {
       break
     }
-  } 
+  }
 }
 
 fn exclude_lines<T: Iterator<Item = NthStr>>(
-    lines: &LineNums,
-    content: T
+  lines: &LineNums,
+  content: T
 ) {
   let mut lines: HashSet<&usize> = 
     lines.iter().collect();
@@ -140,7 +147,7 @@ pub fn run() {
 
 fn get_matches_from_cli<'a>() -> ArgMatches<'a> {
   clap_app!(nth =>
-    (version: "0.2.0")
+    (version: "0.2.1")
     (author: "AlexDeLorenzo.dev")
     (about: 
       "Return the contents of stdin from the line numbers supplied as arguments.")
