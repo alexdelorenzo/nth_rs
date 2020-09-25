@@ -97,7 +97,7 @@ pub fn run() {
 
 fn get_matches_from_cli<'a>() -> ArgMatches<'a> {
   clap_app!(nth =>
-    (version: "0.2.1")
+    (version: "0.2.2")
     (author: "AlexDeLorenzo.dev")
     (about: 
       "Return the contents of stdin from the line numbers supplied as arguments.")
