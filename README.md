@@ -1,6 +1,8 @@
 # nth_rs
 Return or exclude the `nth` lines supplied from stdin as output on stdout. See the Python version of this utility here: [nth_py](https://github.com/alexdelorenzo/nth_py).
 
+This project utilizes [`byte_lines`](https://github.com/alexdelorenzo/byte_lines) to iterate over standard input as lines of bytes, instead of strings or individual bytes.
+
 # Install
 
 ```bash
