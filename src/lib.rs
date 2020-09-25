@@ -1,85 +1,35 @@
 use std::io::{
   self, 
-  Read, 
-  BufRead, 
-  Result as IoResult,
   Write
 };
 use std::collections::HashSet;
 use std::iter::Iterator;
 use std::str::FromStr;
 
-use byte_string::ByteString;
 use clap::{ArgMatches, clap_app};
 
+// Check out https://github.com/alexdelorenzo/byte_lines
+use byte_lines::{
+  ByteLine,
+  ReadByteLines,
+};
 
 const LOWEST: usize = 0;
 const LINES: &str = "LINES";
 const REVERSE: &str = "reverse";
 
-const NEW_LINE: u8 = b'\n';
-const CARRIAGE_RETURN: u8 = b'\r';
-
 type LineNums = Vec<usize>;
-type ByteLine = ByteString;
-type ByteLineResult = IoResult<ByteLine>;
 type NthStr = (usize, ByteLine);
-
-#[derive(Debug, Copy, Clone)]
-pub struct ByteLines<B> {
-    buf: B,
-}
-
-
-impl<B: Read> Iterator for ByteLines<B> {
-  type Item = ByteLineResult;
-
-  fn next(&mut self) -> Option<ByteLineResult> {
-    let mut buf = vec![];
-    let mut bytes = self.buf.by_ref().bytes();
-
-    for byte in bytes {
-      if let Ok(byte) = byte {
-        buf.push(byte);
-
-        if is_newline(byte) {
-          break;
-        }
-      }
-    }
-
-    if buf.is_empty() {
-      return None;
-    }
-
-    let byte_str = ByteString::new(buf);
-    Some(Ok(byte_str))
-  }
-}
-
-trait ReadByteLines<T> {
-  fn byte_lines(self: Self) -> ByteLines<T>;
-}
-
-impl<T> ReadByteLines<T> for T {
-  fn byte_lines(self: T) -> ByteLines<T> {
-    ByteLines { buf: self }
-  }
-}
 
 fn to_num(num: &str) -> usize {
   FromStr::from_str(num).unwrap()
 }
 
-fn is_newline(chr: u8) -> bool {
-  chr == NEW_LINE || chr == CARRIAGE_RETURN
-}
-
-fn to_stdout(byte_str: &ByteString) {
-  let bytes = &byte_str.0;
+fn to_stdout(byte_line: &ByteLine) {
+  let bytes = &byte_line.0;
 
   io::stdout()
-    .write(bytes)
+    .write_all(bytes)
     .expect("Could not write bytes to stdout.");
 }
 
